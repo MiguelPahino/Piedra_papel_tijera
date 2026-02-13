@@ -103,7 +103,8 @@ def main():
     game_history = []
     user_actions_history = []
 
-    while True:
+    play_again = True
+    while play_again:
         computer_action = get_computer_action(user_actions_history, game_history)
 
         try:
@@ -117,8 +118,7 @@ def main():
         game_result = assess_game(user_action, computer_action)
         game_history.append(game_result)
 
-        if not play_another_round():
-            break
+        play_again = play_another_round()
 
 
 if __name__ == "__main__":
