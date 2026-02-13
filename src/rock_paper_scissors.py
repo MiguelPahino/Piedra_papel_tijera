@@ -65,7 +65,7 @@ class Game:
 
 
     def get_computer_action():
-        
+            
         valores = [accion.value for accion in GameAction]
         computer_action = random.choice(valores)
 
