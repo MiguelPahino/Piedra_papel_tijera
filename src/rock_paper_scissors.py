@@ -5,15 +5,16 @@ from enum import IntEnum
 
 
 class GameAction(IntEnum):
-    Rock = 0
-    Paper = 1
-    Scissors = 2
-
+    ROCK = 0
+    PAPER = 1
+    SCISSORS = 2
+    SPOCK = 3
+    LIZARD = 4
 
 class GameResult(IntEnum):
-    Victory = 0
-    Defeat = 1
-    Tie = 2
+    VICTORY = 0
+    DEFEAT = 1
+    TIE = 2
 
 
 
@@ -22,20 +23,28 @@ class Game:
     def __init__(self):
         # Diccionario: acción del usuario -> acciones que lo vencen
         self.victories = {
-            GameAction.Rock: [GameAction.Paper],
-            GameAction.Paper: [GameAction.Scissors],
-            GameAction.Scissors: [GameAction.Rock]
+            GameAction.ROCK: [GameAction.PAPER, GameAction.SPOCK],
+            GameAction.PAPER: [GameAction.SCISSORS, GameAction.LIZARD],
+            GameAction.SCISSORS: [GameAction.ROCK , GameAction.SPOCK],
+            GameAction.SPOCK: [GameAction.PAPER, GameAction.LIZARD],
+            GameAction.LIZARD: [GameAction.ROCK, GameAction.SCISSORS]
         }
 
 
     def assess_game(self, user_action, computer_action):
+        game_result = None
 
         if user_action == computer_action:
             print(f"User and computer picked {user_action.name}. Draw game!")
+            game_result = GameResult.TIE
         elif computer_action in self.victories[user_action]:
             print(f"User picked {user_action.name} and computer picked {computer_action.name}. User loses!")
+            game_result = GameResult.DEFEAT
         else:
             print(f"User picked {user_action.name} and computer picked {computer_action.name}. User wins!")
+            game_result = GameResult.VICTORY
+
+        return game_result
 
 
     def get_computer_action(self):
